@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns="urn:iso:std:iso:20022:tech:xsd:admi.004.001.02" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="urn:iso:std:iso:20022:tech:xsd:admi.004.001.02">
+    <xs:element name="Document" type="Document"/>
+    <xs:complexType name="Document">
+        <xs:sequence>
+            <xs:element name="SysEvtNtfctn" type="SystemEventNotificationV02"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Event2__1">
+        <xs:annotation>
+            <xs:documentation source="Name" xml:lang="EN">Event2__1</xs:documentation>
+            <xs:documentation source="Definition" xml:lang="EN">Provides information on an event that happened in a system.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="EvtCd" type="Event_FedNow_1">
+                <xs:annotation>
+                    <xs:documentation source="Name" xml:lang="EN">EventCode</xs:documentation>
+                    <xs:documentation source="Definition" xml:lang="EN">Proprietary code used to specify an event that occurred in a system.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="EvtParam" type="Max35Text">
+                <xs:annotation>
+                    <xs:documentation source="Name" xml:lang="EN">EventParameter</xs:documentation>
+                    <xs:documentation source="Definition" xml:lang="EN">Describes the parameters of an event which occurred in a system.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="EvtDesc" type="Max1000Text">
+                <xs:annotation>
+                    <xs:documentation source="Name" xml:lang="EN">EventDescription</xs:documentation>
+                    <xs:documentation source="Definition" xml:lang="EN">Free text used to describe an event which occurred in a system.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="EvtTm" type="ISODateTime">
+                <xs:annotation>
+                    <xs:documentation source="Name" xml:lang="EN">EventTime</xs:documentation>
+                    <xs:documentation source="Definition" xml:lang="EN">Date and time at which the event occurred.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="Event_FedNow_1">
+        <xs:annotation>
+            <xs:documentation source="Name" xml:lang="EN">Event_FedNow_1</xs:documentation>
+            <xs:documentation source="Definition" xml:lang="EN">This lists the types of events that can occur during a FedNow Service funds-transfer business day.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ROLL">
+                <xs:annotation>
+                    <xs:documentation source="Name" xml:lang="EN">SystemRollover</xs:documentation>
+                    <xs:documentation source="Definition" xml:lang="EN">FedNow Service has rolled over to the next funds-transfer business day.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EXTN">
+                <xs:annotation>
+                    <xs:documentation source="Name" xml:lang="EN">SystemExtension</xs:documentation>
+                    <xs:documentation source="Definition" xml:lang="EN">FedNow Service funds-transfer business day has been extended.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ADHC">
+                <xs:annotation>
+                    <xs:documentation source="Name" xml:lang="EN">AdHoc</xs:documentation>
+                    <xs:documentation source="Definition" xml:lang="EN">Ad hoc FedNow Service customized message.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="FPOF">
+                <xs:annotation>
+                    <xs:documentation source="Name" xml:lang="EN">Participant Offline</xs:documentation>
+                    <xs:documentation source="Definition" xml:lang="EN">FedNow Service participant is currently offline.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="FPON">
+                <xs:annotation>
+                    <xs:documentation source="Name" xml:lang="EN">Participant Online</xs:documentation>
+                    <xs:documentation source="Definition" xml:lang="EN">FedNow Service participant previously reported offline is back online.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="FPRE">
+                <xs:annotation>
+                    <xs:documentation source="Name" xml:lang="EN">Participant Reactivation</xs:documentation>
+                    <xs:documentation source="Definition" xml:lang="EN">FedNow Service participant previously suspended has been reactivated.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="SITL">
+                <xs:annotation>
+                    <xs:documentation source="Name" xml:lang="EN">Transaction Limit Change</xs:documentation>
+                    <xs:documentation source="Definition" xml:lang="EN">FedNow Service funds-transfer transaction limit has been changed.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="FNKY">
+                <xs:annotation>
+                    <xs:documentation source="Name" xml:lang="EN">FedNow Keys</xs:documentation>
+                    <xs:documentation source="Definition" xml:lang="EN">New FedNow Service public keys are available.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ISODateTime">
+        <xs:annotation>
+            <xs:documentation source="Name" xml:lang="EN">ISODateTime</xs:documentation>
+            <xs:documentation source="Definition" xml:lang="EN">A particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in "XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004" which is aligned with ISO 8601.
+                Note on the time format:
+                1) beginning / end of calendar day
+                00:00:00 = the beginning of a calendar day
+                24:00:00 = the end of a calendar day
+                2) fractions of second in time format
+                Decimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:dateTime"/>
+    </xs:simpleType>
+    <xs:simpleType name="Max1000Text">
+        <xs:annotation>
+            <xs:documentation source="Name" xml:lang="EN">Max1000Text</xs:documentation>
+            <xs:documentation source="Definition" xml:lang="EN">Specifies a character string with a maximum length of 1000 characters.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="1000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Max35Text">
+        <xs:annotation>
+            <xs:documentation source="Name" xml:lang="EN">Max35Text</xs:documentation>
+            <xs:documentation source="Definition" xml:lang="EN">Specifies a character string with a maximum length of 35 characters.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="35"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="SystemEventNotificationV02">
+        <xs:annotation>
+            <xs:documentation source="Name" xml:lang="EN">SystemEventNotificationV02</xs:documentation>
+            <xs:documentation source="Definition" xml:lang="EN">Scope&#13;
+                The SystemEventNotification message is sent by a central system to notify the occurrence of an event in a central system.&#13;
+                Usage&#13;
+                The message can be used by a central settlement system to inform its participants of an event that is going to occur in the system, for instance that the system will be down at a certain time, etc.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="EvtInf" type="Event2__1">
+                <xs:annotation>
+                    <xs:documentation source="Name" xml:lang="EN">EventInformation</xs:documentation>
+                    <xs:documentation source="Definition" xml:lang="EN">Detailed information about a system event.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
